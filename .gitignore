@@ -1,6 +1,4 @@
 # created by virtualenv automatically
 .idea/
 venv/
-
-
-
+db.sqlite3
