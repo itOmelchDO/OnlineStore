@@ -71,7 +71,10 @@
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
                             <div class="card-footer text-center">
-                                <button type="button" class="btn btn-outline-success">До корзини</button>
+                              <a class="btn btn-outline-success"
+                                 href="{% url 'products:basket_add' product.id %}">
+                                  До корзини
+                              </a>
                             </div>
                         </div>
                     </div>
