@@ -35,7 +35,7 @@ class UserRegistrationForm(UserCreationForm):
         "placeholder": "Введіть пароль"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         "class": "form-control py-4",
-        "placeholder": "Підтвердіть пароль"}))
+        "placeholder": "Підтвердити пароль"}))
 
     class Meta:
         model = User
