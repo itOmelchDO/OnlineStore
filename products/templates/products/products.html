@@ -1,19 +1,14 @@
 {% extends 'products/base.html' %}
 {% load static %}
-
 <!-- Custom styles for this template -->
 {% block css %}
     <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
 {% endblock %}
-
 <!-- Page Content -->
 {% block content %}
     <div class="container">
-
     <div class="row">
-
         <div class="col-lg-3">
-
             <h1 class="my-4">Store</h1>
             <div class="list-group">
                 {% for category in categories %}
@@ -25,9 +20,7 @@
 
         </div>
         <!-- /.col-lg-3 -->
-
         <div class="col-lg-9">
-
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -54,9 +47,7 @@
                     <span class="sr-only">Наступна</span>
                 </a>
             </div>
-
             <div class="row">
-
                 {% for product in products %}
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
@@ -81,9 +72,7 @@
                         </div>
                     </div>
                 {% endfor %}
-
              </div>
-
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -101,7 +90,6 @@
     </div>
 </div>
 {% endblock %}
-
 <!-- Footer -->
 {% block footer %}
     <footer class="py-5 bg-dark">
