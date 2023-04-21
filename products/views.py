@@ -4,32 +4,29 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from products.models import ProductCategory, Product, Basket
+from common.views import CommonMixin
 
 
-class IndexView(TemplateView):
+class IndexView(CommonMixin, TemplateView):
     template_name = 'products/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data()
-        context['title'] = 'DESIREX Store'
-        return context
+    title = 'DESIREX Store'
 
 
-class ProductsListView(ListView):
+class ProductsListView(CommonMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
+    title = 'DESIREX Store - Каталог'
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super(ProductsListView, self).get_context_data()
+        context['categories'] = ProductCategory.objects.all()
+        return context
 
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id) if category_id else queryset
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ProductsListView,self).get_context_data()
-        context['title'] = 'DESIREX Store - Каталог'
-        context['categories'] = ProductCategory.objects.all()
-        return context
 
 
 @login_required
