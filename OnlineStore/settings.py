@@ -152,4 +152,3 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = "test.onlinestore.test@gmail.com"
 EMAIL_HOST_PASSWORD = "*********"
-

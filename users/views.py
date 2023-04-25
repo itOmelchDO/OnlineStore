@@ -8,7 +8,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from users.models import User, EmailVerification
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from common.views import CommonMixin
-from products.models import Basket
 
 
 class UserLoginView(LoginView):
