@@ -1,4 +1,5 @@
 {%  extends 'products/base.html' %}
+{% load humanize %}
 
 {% block content %}
     <section>
@@ -22,12 +23,12 @@
                             <h6 class="my-0">{{ basket.product.name }}</h6>
                             <small class="text-muted">{{ basket.quanity }} шт.</small>
                         </div>
-                        <span class="text-muted">{{ basket.sum }} грн</span>
+                        <span class="text-muted">{{ basket.sum|intcomma }} грн</span>
                     </li>
                   {% endfor %}
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Всього до сплати </span>
-                        <strong>{{ baskets.total_sum }} грн</strong>
+                        <strong>{{ baskets.total_sum|intcomma }} грн</strong>
                     </li>
                 </ul>
             </div>
