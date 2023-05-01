@@ -13,33 +13,21 @@
             <div class="col-md-5 col-lg-4 order-md-last">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-primary">Кошик</span>
-                    <span class="badge badge-primary badge-pill text-white">3</span>
+                    <span class="badge badge-primary badge-pill text-white">{{ baskets.total_quantity }}</span>
                 </h4>
                 <ul class="list-group mb-3">
+                  {% for basket in baskets %}
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
-                            <h6 class="my-0">Product name</h6>
-                            <small class="text-muted">2 шт.</small>
+                            <h6 class="my-0">{{ basket.product.name }}</h6>
+                            <small class="text-muted">{{ basket.quanity }} шт.</small>
                         </div>
-                        <span class="text-muted">11 400 грн</span>
+                        <span class="text-muted">{{ basket.sum }} грн</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Second product</h6>
-                            <small class="text-muted">1 шт.</small>
-                        </div>
-                        <span class="text-muted">3 200 руб.</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Third item</h6>
-                            <small class="text-muted">3 шт.</small>
-                        </div>
-                        <span class="text-muted">12 894 грн</span>
-                    </li>
+                  {% endfor %}
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Всього до сплати</span>
-                        <strong>27 497 грн</strong>
+                        <span>Всього до сплати </span>
+                        <strong>{{ baskets.total_sum }} грн</strong>
                     </li>
                 </ul>
             </div>
