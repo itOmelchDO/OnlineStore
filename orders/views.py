@@ -57,10 +57,11 @@ class OrderCreateView(CommonMixin, CreateView):
     def post(self, request, *args, **kwargs):
         super(OrderCreateView, self).post(request, *args, **kwargs)
         baskets = Basket.objects.filter(user=self.request.user)
+
         checkout_session = stripe.checkout.Session.create(
             line_items=baskets.stripe_products(),
             metadata={"order_id": self.object.id},
-            mode='payment',
+            mode="payment",
             success_url="{}{}".format(settings.DOMAIN_NAME, reverse("orders:order_success")),
             cancel_url="{}{}".format(settings.DOMAIN_NAME, reverse("orders:order_canceled")),
         )
@@ -89,7 +90,7 @@ def stripe_webhook_view(request):
         return HttpResponse(status=400)
 
     # Handle the checkout.session.completed event
-    if event['type'] == 'checkout.session.completed':
+    if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
 
         # Fulfill the purchase...
@@ -101,5 +102,5 @@ def stripe_webhook_view(request):
 
 def fulfill_order(session):
     order_id = int(session.metadata.order_id)
-    order = Order.ordering.get(id=order_id)
+    order = Order.objects.get(id=order_id)
     order.update_after_payment()
