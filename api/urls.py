@@ -5,7 +5,7 @@ from api.views import BasketModelViewSet, ProductModelViewSET
 
 router = routers.DefaultRouter()
 router.register(r"products", ProductModelViewSET)
-router.register(r"basket", BasketModelViewSet)
+router.register(r"baskets", BasketModelViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
