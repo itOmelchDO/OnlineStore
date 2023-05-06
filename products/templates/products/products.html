@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-{% load static humanize %}
+{% load static cache humanize %}
 <!-- Custom styles for this template -->
 {% block css %}
     <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
@@ -47,7 +47,9 @@
                 </a>
             </div>
             <div class="row">
-                {% for product in object_list %}
+
+            {% cache 30 object_list %}
+              {% for product in object_list %}
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             <a href="#">
@@ -65,13 +67,14 @@
                             <div class="card-footer text-center">
                               <a class="btn btn-outline-success"
                                  href="{% url 'products:basket_add' product.id %}">
-                                  До корзини
+                                  До кошика
                               </a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-             </div>
+            {% endcache %}
+            </div>
 
             {% if is_paginated %}
             <nav aria-label="Page navigation example">
