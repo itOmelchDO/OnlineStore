@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
-import environ
 from pathlib import Path
+
+import environ
 
 env = environ.Env(
     DEBUG=bool,
@@ -54,7 +54,6 @@ ALLOWED_HOSTS = ['*']
 
 DOMAIN_NAME = env("DOMAIN_NAME")
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,10 +72,13 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "debug_toolbar",
     "django_extensions",
+    "rest_framework",
+    "rest_framework.authtoken",
 
     "products",
     "orders",
     "users",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -145,7 +147,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -164,7 +165,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -176,12 +176,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-
 
 if DEBUG:
     STATICFILES_DIRS = [
@@ -193,12 +191,10 @@ else:
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # Users
 
@@ -230,10 +226,10 @@ SITE_ID = 1
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
-            'SCOPE': [
-                'user',
-            ],
-        }
+        'SCOPE': [
+            'user',
+        ],
+    }
 }
 
 # Stripe
@@ -242,8 +238,18 @@ STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
 
-
 # Celery
 
 CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}"
+
+# Django REST Framework
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 3,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
